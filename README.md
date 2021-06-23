@@ -1,2 +1,2 @@
 # blogcanada
-First version with front-end stools
+First version with front-end tools
