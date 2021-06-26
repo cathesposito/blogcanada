@@ -1,0 +1,28 @@
+<%- include('partials/header'); -%>
+
+    <h1>Contact</h1>
+    <p class="pBorder"> <%= startingContent %> </p>
+
+    <div class="row">
+      <div class="col-4">
+        <ol>
+          <li><a target="_blank" href="https://github.com/cathesposito">GitHub</a></li>
+          <li><a target="_blank" href="https://www.linkedin.com/in/catarina-e-mendes/">Linkedin</a></li>
+          <li><a target="_blank" href="https://www.instagram.com/canada.cath/">Instagram</a></li>
+        </ol>
+      </div>
+      <div class="col-8">
+        <form action="mailto:catarina.em12@gmail.com" method="post" enctype="text/plain">
+            <input type="text" name="yourName" value="" placeholder="Your Name">
+            <br>
+            <input type="email" name="yourEmail" value="" placeholder="Your Email">
+            <br>
+            <textarea name="yourMessage" rows="10" cols="30"></textarea>
+            <br>
+            <input type="submit" name="">
+        </form>
+      </div>
+    </div>
+
+
+<%- include('partials/footer'); -%>

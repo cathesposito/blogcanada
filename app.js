@@ -1,57 +1,100 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
-const _ = require("lodash");
+const mongoose = require("mongoose");
 
-const homeStartingContent = "afabfhabfhaf";
-const aboutContent = "ahaisufhsaihf";
-const contactContent = "dhaiudhqu";
-let posts = [];
+const homeStartingContent = "Take it all one day at a time and enjoy the journey. - Kristi Bartlett";
+const aboutContent = "I'm a mechanical engineer that are moving to Canada with my husband and dog. I'm also changing careers and countries. So I'll have a lot new things to experience and I want to share them with you.";
+const contactContent = "Feel free to contact me and let's share ours experiences.";
 
-  const today = new Date();
-  const options = {day: "numeric", month: "long"};
-  const day = today.toLocaleDateString("en-US", options);
+
+const today = new Date();
+const options = {
+  day: "numeric",
+  month: "long"
+};
+const day = today.toLocaleDateString("en-US", options);
 
 const app = express();
 
 
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(express.static("public"));
 
-app.get("/", function(req, res){
-  res.render("home", {startingContent: homeStartingContent, posts: posts, day: day});
+mongoose.connect("mongodb://localhost:27017/blogDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
-app.get("/about", function(req, res){
-  res.render("about", {startingContent: aboutContent});
+const postSchema = {
+  section: String,
+  title: String,
+  content: String
+};
+
+const Post = mongoose.model("Post", postSchema);
+
+
+app.get("/", function(req, res) {
+
+  Post.find({}, function(err, posts) {
+    res.render("home", {
+      startingContent: homeStartingContent,
+      posts: posts,
+      day: day
+    });
+  })
 });
 
-app.get("/contact", function(req, res){
-  res.render("contact", {startingContent: contactContent});
+app.get("/about", function(req, res) {
+  res.render("about", {
+    startingContent: aboutContent
+  });
 });
 
-app.get("/compose", function(req, res){
+app.get("/contact", function(req, res) {
+  res.render("contact", {
+    startingContent: contactContent
+  });
+});
+
+app.get("/compose", function(req, res) {
   res.render("compose");
 });
 
-app.post("/compose", function(req, res){
-  const post = {section: req.body.postSection, title: req.body.postTitle, content: req.body.postBody};
-  posts.push(post);
-  res.redirect("/");
-});
+app.post("/compose", function(req, res) {
 
-app.get("/posts/:postName", function(req, res){
-  const requestedTitle = _.lowerCase(req.params.postName);
+  const post = new Post({
+    section: req.body.postSection,
+    title: req.body.postTitle,
+    content: req.body.postBody
+  });
 
-  posts.forEach(function(post){
-    const storedTitle = _.lowerCase(post.title);
-
-    if (storedTitle === requestedTitle){
-      res.render("post", {section: post.section, title: post.title, day: day, content: post.content});
+  post.save(function(err) {
+    if (!err) {
+      res.redirect("/");
     }
   });
+
+});
+
+app.get("/posts/:postId", function(req, res) {
+  const requestedPostId = req.params.postId;
+
+  Post.findOne({
+    _id: requestedPostId
+  }, function(err, post) {
+    res.render("post", {
+      section: post.section,
+      title: post.title,
+      day: day,
+      content: post.content
+    });
+  })
 
 });
 

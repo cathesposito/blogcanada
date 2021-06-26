@@ -1,0 +1,80 @@
+
+.navagationBar{
+  background-color: rgb(240, 178, 175);
+  background-color: rgba(240, 178, 175, 0.2);
+  border-radius: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 0;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.blog-footer{
+  background-color: rgb(240, 178, 175);
+  background-color: rgba(240, 178, 175, 0.1);
+  padding: 10px;
+}
+
+a{
+  color: #000000;
+  padding: 10px;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #e30505;
+}
+
+p.pBorder {
+  text-align: justify;
+  border-bottom: solid;
+  border-color: rgb(240, 178, 175);
+  border-color: rgba(240, 178, 175, 0.1);
+  border-bottom-style: outset;
+}
+
+
+
+input[type=text], input[type=email] {
+  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 300px;
+  padding: 8px 16px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  color: #4E6388;
+}
+
+textarea {
+  width: 300px;
+  height: 160px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: solid black;
+  background-color: rgb(255, 255, 255);
+  resize: inherit;
+  color: #4E6388;
+}
+
+input[type=submit] {
+  background-color: #fff;
+  border: solid;
+  border-radius: 4px;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+ol{
+  list-style: none;
+  padding-left: 0;
+}
+
+li{
+  padding-bottom: 10px;
+  font-weight: bold;
+  font-style: italic;  
+}
